@@ -9,7 +9,7 @@ const register = catchAsync(async (req, res) => {
     if (await User.isEmailTaken(req.body.email)) {
       return res.status(201).json({
         status: "201",
-        message: "User already registered.",
+        message: `Email already registered.`,
       });
     }
 
@@ -17,7 +17,7 @@ const register = catchAsync(async (req, res) => {
 
     return res.status(200).json({
       status: "200",
-      message: "User registered successfully.",
+      message: `${req.body.role} registered successfully.`,
       data: user,
     });
   } catch (error) {
@@ -32,19 +32,21 @@ const register = catchAsync(async (req, res) => {
 const login = catchAsync(async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body, "killlllllllllllllll");
 
     const user = await User.findOne({ email });
-    console.log(user, "oooooooooooooooooooooooooo");
-    // if (!user || !(await user.isPasswordMatch(password))) {
-    //   throw new ApiError(
-    //     httpStatus.UNAUTHORIZED,
-    //     "Incorrect email or password"
-    //   );
-    // }
-
+    if (!user) {
+      return res.status(200).json({
+        status: "400",
+        message: "User not found",
+      });
+    }
+    if (!(await user.isPasswordMatch(password))) {
+      return res.status(200).json({
+        status: "400",
+        message: "Incorrect password",
+      });
+    }
     const tokens = await tokenService.generateAuthTokens(user);
-    console.log(tokens, "oppopopopopopopou");
     return res.status(200).json({
       status: "200",
       message: "User logged in successfully.",
@@ -53,20 +55,14 @@ const login = catchAsync(async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      status: "error",
-      message: "An error occurred while updating state data.",
+      status: "500",
+      message: "An error occurred while login.",
       error: error.message,
     });
   }
 });
 
-const logout = catchAsync(async (req, res) => {
-  await authService.logout(req.body.refreshToken);
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
 module.exports = {
   register,
   login,
-  logout,
 };
