@@ -54,7 +54,7 @@
 // export default Fetch;
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
-import Header from "../layout/header";
+import Header from "../layout/navbar";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Header from "../../layout/header";
-
+import Header from "../../layout/navbar";
+import "./auth.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   const [formvalue, setFormvalue] = useState({
     email: "",
     password: "",
@@ -18,28 +24,28 @@ function Login() {
       [event.target.name]: event.target.value,
     });
   };
-  const lognav = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let result = axios
-      .post("http://localhost:4000/login", {
+      .post("http://localhost:4000/v1/auth/login", {
         email: formvalue.email,
         password: formvalue.password,
       })
-
       .then((result) => {
-        if (result.data.status === "success") {
-          localStorage.setItem("token", result.data.token);
-          localStorage.setItem("user", JSON.stringify(result.data.user));
-          toast.success(result.data.message);
+        console.log(result, "resultresultresultresultresultresultresult");
+
+        if (result?.data?.status === "200") {
+          localStorage.setItem("token", result?.data?.tokens?.access?.token);
+          localStorage.setItem("user", JSON.stringify(result?.data?.data));
+          localStorage.setItem("userRole", result?.data?.data?.role);
+          toast.success(result?.data?.message);
           window.location.reload();
-          lognav("/home");
+          navigate("/");
         } else {
-          // alert("Login failed due to : ", result.data.message);
-          console.log("Login Failed : ", result.data.message);
-          toast.error(result.data.message);
+          toast.error(result?.data?.message);
         }
       })
 
@@ -51,32 +57,57 @@ function Login() {
 
   return (
     <>
-      <Header />
-      <h1>Login</h1>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="">Email</label>
-          <input
-            type="text"
-            value={formvalue.email}
-            name="email"
-            onChange={handleChange}
-            autoComplete="on"
-          ></input>
+      <div className="container">
+        <div className="row form-main loginDivz">
+          <div className="formDiv shadow">
+            <h1>Login</h1>
 
-          <label htmlFor="">Password</label>
-          <input
-            type="password"
-            value={formvalue.password}
-            name="password"
-            onChange={handleChange}
-            autoComplete="off"
-          ></input>
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div>
+                  <label htmlFor="">Email</label>
+                  <input
+                    type="text"
+                    value={formvalue.email}
+                    name="email"
+                    onChange={handleChange}
+                    autoComplete="on"
+                  ></input>
+                </div>
+                <div className="passWordDiv">
+                  <label htmlFor="">Password</label>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={formvalue.password}
+                    name="password"
+                    onChange={handleChange}
+                    autoComplete="off"
+                  />
+                  <span
+                    className="eyeSpan"
+                    id="togglePassword"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? (
+                      <i className="fa-solid fa-eye-slash"></i>
+                    ) : (
+                      <i className="fa-solid fa-eye"></i>
+                    )}
+                  </span>
+                </div>
+              </div>
 
-          <button color="primary" type="submit">
-            Login
-          </button>
-        </form>
+              <div className="row button-div">
+                <button className="button-css" type="submit">
+                  Login
+                </button>
+              </div>
+            </form>
+          </div>
+          <p className="linkText" onClick={() => navigate("/register")}>
+            Sign up as new user!
+          </p>
+        </div>
       </div>
     </>
   );

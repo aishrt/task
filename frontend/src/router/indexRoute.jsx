@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import PrivateRoute from "./privateRoutes";
-import PublicRoutes from "./publicRoutes";
+import PrivateRoute from "./privateRoute";
+import AuthRoutes from "./authRoutes";
+import EmployeeRoute from "./employeeRoute";
 
 const AuthorizationContext = React.createContext();
 
 function IndexRoute() {
-  const token = localStorage.getItem("token");
-  console.log("Loged in Successfully  : ", token);
+  const user = localStorage.getItem("user");
   return (
     <>
-      <AuthorizationContext.Provider value={token}>
-        {token ? <PrivateRoute /> : <PublicRoutes />}
+      <AuthorizationContext.Provider value={user}>
+        {user ? (
+          JSON.parse(user)?.role === "Manager" ? (
+            <PrivateRoute />
+          ) : (
+            <EmployeeRoute />
+          )
+        ) : (
+          <AuthRoutes />
+        )}
       </AuthorizationContext.Provider>
     </>
   );

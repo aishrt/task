@@ -16,6 +16,16 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    location: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    department: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     phone_number: {
       type: String,
       required: true,
@@ -48,8 +58,6 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: roles,
-      default: "manager",
     },
   },
   {

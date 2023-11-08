@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Home from "../pages/home";
-import Fetch from "../pages/fetch";
+
+import ManagerLanding from "../pages/manager/managerLanding";
+import ManagerProfile from "../pages/manager/managerProfile";
 
 function PrivateRoute() {
   return (
@@ -11,9 +12,9 @@ function PrivateRoute() {
         <ToastContainer />
 
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/fetch" element={<Fetch />} />
-          <Route path="/*" element={<Navigate to="home" />} />
+          <Route path="/" element={<ManagerLanding />} />
+          <Route path="/profile" element={<ManagerProfile />} />
+          <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </>

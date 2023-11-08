@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "../pages/auth/register";
 import Login from "../pages/auth/login";
 
-function PublicRoutes() {
+function AuthRoutes() {
   return (
     <>
       <BrowserRouter>
@@ -21,4 +21,4 @@ function PublicRoutes() {
   );
 }
 
-export default PublicRoutes;
+export default AuthRoutes;
