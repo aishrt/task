@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
+
+
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
+  font-family: 'Roboto', sans-serif !important;
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -9,11 +13,75 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: 0 !important;
+  padding: 0 !important;
 }
+
+.row {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.makePadding {
+  margin-bottom: 60px;
+}
+
+a.logoText {
+  text-decoration: none;
+  font-size: 24px;
+  color: #1473ff;
+  font-weight: 600;
+}
+
+a.logoText:hover {
+  color: #000;
+}
+
+.mt-1 {
+  margin-top: 20px !important;
+}
+
+.mt-2 {
+  margin-top: 40px !important;
+}
+
+.mt-3 {
+  margin-top: 60px !important;
+}
+
+.mt-4 {
+  margin-top: 80px !important;
+}
+
+.mt-5 {
+  margin-top: 100px !important;
+}
+
+.pt-1 {
+  padding-top: 20px !important;
+}
+
+.pt-2 {
+  padding-top: 40px !important;
+}
+
+.pt-3 {
+  padding-top: 60px !important;
+}
+
+.pt-4 {
+  padding-top: 80px !important;
+}
+
+.pt-5 {
+  padding-top: 100px !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 .shadow {
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3) !important;
 }
@@ -31,7 +99,8 @@ code {
   border-radius: 4px;
   margin-top: 10px;
   color: #fff;
-  text-align: center; /* Center-align the text */
+  text-align: center;
+  /* Center-align the text */
   width: auto !important;
 }
 
@@ -40,15 +109,13 @@ code {
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active,
 .react-calendar__tile--active:enabled:focus {
-  background: transparent linear-gradient(83deg, #1473ff, #be01ff) 0 0 no-repeat
-    padding-box;
+  background: transparent linear-gradient(83deg, #1473ff, #be01ff) 0 0 no-repeat padding-box;
   border: unset !important;
   transition: all ease-in-out 1s;
 }
 
 .button-css:hover {
-  background: transparent linear-gradient(83deg, #be01ff, #1473ff) 0 0 no-repeat
-    padding-box;
+  background: transparent linear-gradient(83deg, #be01ff, #1473ff) 0 0 no-repeat padding-box;
   border: unset !important;
   transition: all ease-in-out 1s;
 }
@@ -56,6 +123,7 @@ code {
 :focus-visible {
   outline: none;
 }
+
 span.error {
   top: 46px;
   text-align: left;
@@ -63,4 +131,112 @@ span.error {
   display: flex;
   font-size: 13px;
   color: #a90909;
+}
+
+
+
+/* -------- Table --------------- */
+
+.tableMainDiv {
+  border: 1px solid lightgray;
+  padding: 3px;
+  border-radius: 3px;
+  width: 100% !important;
+}
+
+.custom-table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+}
+
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.custom-table .tableInBtn {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  background-color: transparent;
+  margin-left: 8px;
+  color: rgb(116, 115, 115);
+}
+
+.custom-table .tableInBtn:hover {
+  color: #1473ff;
+}
+
+.paginationButtonDiv {
+  float: left;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 20px;
+  margin-top: 20px;
+}
+
+.paginationButtonDiv .arrowBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.paginationButtonDiv .arrowBtn i {
+  font-size: 27px;
+}
+
+.paginationButtonDiv .arrowBtn:hover i {
+  color: #1473ff;
+}
+
+.paginationButtonDiv .numBtn {
+  border: 2px solid gray;
+  margin-right: 2px;
+  margin-left: 2px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: gray;
+  position: relative;
+  font-weight: 600;
+  top: -3px;
+}
+
+.paginationButtonDiv .numBtn:hover {
+  color: #1473ff;
+  border-color: #1473ff;
+}
+
+.sortSelect {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.sortSelect label {
+  font-weight: 500;
+  font-size: 15px;
+  width: 100%;
+}
+
+.sortSelect select {
+  border: 1px solid lightgray;
+  width: auto;
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }

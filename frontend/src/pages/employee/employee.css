@@ -87,3 +87,59 @@
   top: 0 !important;
   left: 0 !important;
 }
+
+
+.sideBanner {
+  max-width: 80%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.maxWidth {
+  width: 100% !important;
+}
+
+.rightSideDiv {
+  margin-top: 50px;
+  padding: 30px 30px 30px 70px;
+}
+
+.follow {
+  margin: 0;
+  margin-top: 30px !important;
+}
+
+.follow div {
+  margin: 0;
+  padding: 0;
+}
+
+.follow i {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.follow i:hover {
+  color: cadetblue;
+  font-size: 30px;
+}
+
+.newStyle {
+  color: cadetblue;
+}
+
+.editButton {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  border: 1px solid rgb(19, 140, 145);
+  background: transparent;
+  width: 40px;
+  border-radius: 50%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 19px;
+  text-align: center;
+}

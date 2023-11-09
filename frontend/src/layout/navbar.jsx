@@ -22,7 +22,11 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container">
         <div className="logo">
-          <img className="logoImg" src={logo} alt="logo" />
+          {/* <img className="logoImg" src={logo} alt="logo" /> */}
+
+          <Link className="logoText" to="/">
+            {userRole === "Manager" ? "Manager Pannel" : "Employee Pannel"}
+          </Link>
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
           {!showNavbar ? (
@@ -34,15 +38,16 @@ const Navbar = () => {
         <div className={`nav-elements ${showNavbar && "active"}`}>
           <ul>
             <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/profile">profile</Link>
+              <Link to="/profile">Profile</Link>
             </li>
             {userRole === "Manager" && (
               <>
                 <li>
-                  <Link to="/profile">Employee List </Link>
+                  <Link to="/employee-list">Employee List </Link>
+                </li>
+
+                <li>
+                  <Link to="/manager-list">Managers List </Link>
                 </li>
               </>
             )}
