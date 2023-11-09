@@ -12,6 +12,7 @@ function UpdateEmployee() {
     fetchData();
   }, [id]);
 
+
   const fetchData = () => {
     const apiUrl = `http://localhost:4000/v1/manager/getOneEmployee/${id}`;
 
@@ -31,7 +32,6 @@ function UpdateEmployee() {
   const [formData, setFormData] = useState({
     department: "",
   });
-
 
   const [errors, setErrors] = useState({});
 
@@ -67,11 +67,11 @@ function UpdateEmployee() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const data = await axios.post(
+        const dataResponse = await axios.put(
           `http://localhost:4000/v1/manager/updateEmployee/${id}`,
           formData
         );
-        result = data?.data;
+        result = dataResponse?.data;
         if (result.status === "200") {
           toast.success(result.message);
           navigate("/employee-list");
@@ -104,7 +104,7 @@ function UpdateEmployee() {
       <div className="container">
         <div className="row form-main regDivz mt-5">
           <div className="formDiv shadow">
-            <h2>Update Employee</h2>
+            <h2>Update Employee data</h2>
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-md-6">

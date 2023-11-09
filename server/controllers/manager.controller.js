@@ -85,16 +85,37 @@ const login = catchAsync(async (req, res) => {});
 const updateEmployeeDepartment = catchAsync(async (req, res) => {
   let role = "";
   const inputData = req.body;
+  const Identity = req.params.id;
+  department = inputData?.department;
   try {
-    console.log(inputData, "inputData helooooooooooooooooooooo");
     const result = await User.findOneAndUpdate(
-      { id: req.params.id },
-      { inputData },
+      { _id: Identity },
+      { department },
       { new: true }
     );
-    console.log(result, "result helooooooooooooooooooooo");
 
-    result.save();
+    role = result?.role;
+    return res.status(200).json({
+      status: "200",
+      message: `${role} updated successfully.`,
+      data: result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "500",
+      message: `An error occurred while updating ${role} data.`,
+      error: error.message,
+    });
+  }
+});
+const updateManager = catchAsync(async (req, res) => {
+  let role = "";
+  const inputData = req.body;
+  const Identity = req.params.id;
+  try {
+    const result = await User.findOneAndUpdate({ _id: Identity }, req.body, {
+      new: true,
+    });
     role = result?.role;
     return res.status(200).json({
       status: "200",
@@ -116,4 +137,5 @@ module.exports = {
   updateEmployeeDepartment,
   getOneEmployee,
   getManagers,
+  updateManager,
 };

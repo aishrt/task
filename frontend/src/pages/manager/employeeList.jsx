@@ -115,9 +115,9 @@ function EmployeeList() {
                         >
                           <i className="fa-solid fa-pen-to-square"></i>
                         </button>
-                        <button className="tableInBtn">
+                        {/* <button className="tableInBtn">
                           <i className="fa-solid fa-trash-can"></i>
-                        </button>
+                        </button> */}
                       </>
                     </td>
                   </tr>

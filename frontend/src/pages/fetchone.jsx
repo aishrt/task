@@ -26,7 +26,6 @@ const Fetchone = () => {
     } else {
       setIdd(null);
       // window.location.reload();
-      console.log("Result ===>", data.message);
       toast.error(data.message);
     }
     // data !== null ? setUsers(data.result) : setUsers(data.mesage);s

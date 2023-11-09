@@ -81,8 +81,8 @@ function ManagerProfile() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const data = await axios.post(
-          `http://localhost:4000/v1/manager/updateEmployee/${id}`,
+        const data = await axios.put(
+          `http://localhost:4000/v1/manager/updateManager/${id}`,
           formData
         );
         result = data?.data;

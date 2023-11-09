@@ -82,7 +82,6 @@ function Register() {
       },
       body: JSON.stringify(userDetail),
     });
-    // console.log("============", userDetail);
     result = await result.json();
     if (result.status === "success") {
       toast.success(result.message);

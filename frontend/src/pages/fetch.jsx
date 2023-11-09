@@ -88,7 +88,6 @@ function Fetch() {
     const data = await response.json();
 
     setUsers(data.result);
-    console.log(data);
   };
 
   const handleUpdate = async (e) => {
@@ -114,7 +113,6 @@ function Fetch() {
     } else {
       setIdd(null);
       // window.location.reload();
-      console.log("Result ===>", data.message);
       toast.error(data.message);
     }
     window.location.reload();
@@ -130,11 +128,9 @@ function Fetch() {
       body: JSON.stringify({ id: id }),
     });
     deleteApi = await deleteApi.json();
-    console.log("kjdkjbcksdjbcds sdk dsk skjksd kjsd ksj",deleteApi)
     if (deleteApi.status === "success") {
       toast.success(deleteApi.message);
     } else {
-      console.log("Result ===>", deleteApi.message);
       toast.error(deleteApi.message);
     }
   }

@@ -81,7 +81,7 @@ function EmpProfile() {
     if (validateForm()) {
       try {
         formData.role = "Employee";
-        const data = await axios.post(
+        const data = await axios.put(
           `http://localhost:4000/v1/manager/updateEmployee/${id}`,
           formData
         );
