@@ -2,8 +2,46 @@
 
 .navbar {
   height: 60px;
-  background-color: #fef7e5;
+  background-color: #9ed4f3;
+  font-family: 'Lexend Deca', sans-serif;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+
+
+.navbar li a:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+.navbar li a {
   position: relative;
+  text-decoration: none;
+  color: black;
+  margin-top: 4px !important;
+  font-size: 19px;
+  text-align: center;
+  visibility: visible;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar li a:after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: -5px;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #000;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+
+.navbar li a:hover:after {
+  width: 100%;
+  left: 0;
 }
 
 .logoImg {
@@ -19,16 +57,17 @@
   display: flex;
   justify-content: space-between;
   list-style-type: none;
+  margin-top: 10px;
 }
 
 .nav-elements ul li:not(:last-child) {
-  margin-right: 60px;
+  margin-right: 20px;
 }
 
 .nav-elements ul a {
-  font-size: 16px;
-  font-weight: 400;
-  color: #2f234f;
+  font-size: 17px;
+  font-weight: 500;
+  color: #1473ff;
   text-decoration: none;
 }
 

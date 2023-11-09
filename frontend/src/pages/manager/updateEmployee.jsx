@@ -1,39 +1,50 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "./auth.css";
-import { useNavigate } from "react-router-dom";
-function Register() {
-  const navigate = useNavigate();
-  const [isEmployee, setIsEmployee] = useState(false);
-  const [find, setFind] = useState(false);
-  const [role, setRole] = useState("Employee");
-  const handleCheckboxChange = (e) => {
-    setIsEmployee(e.target.checked); // Update the state based on checkbox
-  };
+import "../auth/auth.css";
+import { useNavigate, useParams } from "react-router-dom";
+import Navbar from "../../layout/navbar";
+function UpdateEmployee() {
+  const { id } = useParams();
+  const [data, setData] = useState();
+
   useEffect(() => {
-    if (isEmployee) {
-      setRole("Manager");
-    } else if (!isEmployee) {
-      setRole("Employee");
-    }
-  }, [isEmployee]);
+    fetchData();
+  }, [id]);
+
+  const fetchData = () => {
+    const apiUrl = `http://localhost:4000/v1/manager/getOneEmployee/${id}`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        setData(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  const navigate = useNavigate();
+  const [find, setFind] = useState(false);
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    phone_number: "",
-    email: "",
-    password: "",
-    role: role,
+    department: "",
   });
 
+
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      ["department"]: data?.department,
+    });
+  }, [data]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Clear the error message for the input field that is being changed
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: "",
@@ -49,21 +60,21 @@ function Register() {
       validateForm();
     }
   }, [find, formData]);
+
   let result = "";
   const handleSubmit = async (e) => {
     setFind(true);
     e.preventDefault();
     if (validateForm()) {
       try {
-        formData.role = role;
         const data = await axios.post(
-          "http://localhost:4000/v1/auth/register",
+          `http://localhost:4000/v1/manager/updateEmployee/${id}`,
           formData
         );
-        result = data?.data; 
+        result = data?.data;
         if (result.status === "200") {
           toast.success(result.message);
-          navigate("/login");
+          navigate("/employee-list");
         } else {
           toast.error(result.message);
         }
@@ -76,42 +87,10 @@ function Register() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.first_name) {
-      newErrors.first_name = "First Name is required";
-    } else if (/\d/.test(formData.first_name)) {
-      newErrors.first_name = "First Name should not contain numbers";
-    }
-
-    if (!formData.last_name) {
-      newErrors.last_name = "Last Name is required";
-    } else if (/\d/.test(formData.last_name)) {
-      newErrors.last_name = "Last Name should not contain numbers";
-    }
-    if (!formData.location) {
-      newErrors.location = "Location is required";
-    }
     if (!formData.department) {
       newErrors.department = "Department is required";
     } else if (/\d/.test(formData.department)) {
       newErrors.department = "Department Name should not contain numbers";
-    }
-    if (!formData.phone_number) {
-      newErrors.phone_number = "Phone Number is required";
-    } else if (!/^\d{10}$/.test(formData.phone_number)) {
-      newErrors.phone_number =
-        "Phone Number should contain exactly 10 digits and no other characters";
-    }
-
-    if (!formData.email.match(/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/)) {
-      newErrors.email = "Invalid email address";
-    }
-
-    if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters long";
-    } else if (!/[a-zA-Z]/.test(formData.password)) {
-      newErrors.password = "Password must contain at least one letter";
-    } else if (!/\d/.test(formData.password)) {
-      newErrors.password = "Password must contain at least one number";
     }
 
     setErrors(newErrors);
@@ -120,106 +99,95 @@ function Register() {
 
   return (
     <>
+      <Navbar />
+
       <div className="container">
-        <div className="row form-main regDivz">
+        <div className="row form-main regDivz mt-5">
           <div className="formDiv shadow">
-            <h2>Registration Form</h2>
+            <h2>Update Employee</h2>
             <form onSubmit={handleSubmit}>
               <div className="row">
-                <div>
+                <div className="col-md-6">
                   <label for="first_name">First Name</label>
                   <input
+                    disabled
                     type="text"
                     name="first_name"
-                    value={formData.first_name}
+                    value={data?.first_name}
                     onChange={handleChange}
                   />
                   <span className="error">{errors.first_name}</span>
                 </div>
-                <div>
+                <div className="col-md-6">
                   <label>Last Name</label>
                   <input
+                    disabled
                     type="text"
                     name="last_name"
-                    value={formData.last_name}
+                    value={data?.last_name}
                     onChange={handleChange}
                   />
                   <span className="error">{errors.last_name}</span>
                 </div>
-                <div>
+                <div className="col-md-6">
                   <label>Phone Number</label>
                   <input
+                    disabled
                     type="tel"
                     name="phone_number"
-                    value={formData.phone_number}
+                    value={data?.phone_number}
                     onChange={handleChange}
                   />
                   <span className="error">{errors.phone_number}</span>
                 </div>
-                <div>
+                <div className="col-md-6">
                   <label>Location</label>
                   <input
+                    disabled
                     type="text"
                     name="location"
-                    value={formData.location}
+                    value={data?.location}
                     onChange={handleChange}
                   />
                   <span className="error">{errors.location}</span>
                 </div>
-                <div>
+                <div className="col-md-6">
                   <label>Department</label>
                   <input
                     type="text"
                     name="department"
-                    value={formData.department}
+                    value={
+                      formData?.department
+                        ? formData?.department
+                        : data?.department
+                    }
                     onChange={handleChange}
                   />
                   <span className="error">{errors.department}</span>
                 </div>
-                <div>
+                <div className="col-md-6">
                   <label>Email</label>
                   <input
+                    disabled
                     type="email"
                     name="email"
-                    value={formData.email}
+                    value={data?.email}
                     onChange={handleChange}
                   />
                   <span className="error">{errors.email}</span>
                 </div>
-                <div>
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
-                  <span className="error">{errors.password}</span>
-                </div>
-                <div className="checkboxDiv">
-                  <input
-                    type="checkbox"
-                    name="isEmployee"
-                    checked={isEmployee}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label>Want to register as manager !</label>
-                </div>
               </div>
               <div className="row button-div">
                 <button className="button-css" type="submit">
-                  Register
+                  Update
                 </button>
               </div>
             </form>
           </div>
-          <p className="linkText" onClick={() => navigate("/login")}>
-            Already a user , Login!
-          </p>
         </div>
       </div>
     </>
   );
 }
 
-export default Register;
+export default UpdateEmployee;

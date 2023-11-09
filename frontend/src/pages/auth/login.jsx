@@ -35,7 +35,6 @@ function Login() {
         password: formvalue.password,
       })
       .then((result) => {
-        console.log(result, "resultresultresultresultresultresultresult");
 
         if (result?.data?.status === "200") {
           localStorage.setItem("token", result?.data?.tokens?.access?.token);
