@@ -142,8 +142,8 @@ function EmpProfile() {
             <div className="rightSideDiv">
               <h3>
                 Welcome{" "}
-                <span className="newStyle"> {userData?.first_name}</span>
-                <span className="newStyle">{userData?.last_name}</span>
+                <span className="newStyle"> {userData?.first_name} </span>
+                <span className="newStyle"> {userData?.last_name}</span>
               </h3>
               <h5>
                 You are an <span className="newStyle">{userData?.role}</span> ,
