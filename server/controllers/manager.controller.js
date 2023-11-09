@@ -84,13 +84,16 @@ const getOneEmployee = catchAsync(async (req, res) => {
 const login = catchAsync(async (req, res) => {});
 const updateEmployeeDepartment = catchAsync(async (req, res) => {
   let role = "";
+  const inputData = req.body;
   try {
-    const department = req.body.department;
+    console.log(inputData, "inputData helooooooooooooooooooooo");
     const result = await User.findOneAndUpdate(
       { id: req.params.id },
-      req.body,
+      { inputData },
       { new: true }
     );
+    console.log(result, "result helooooooooooooooooooooo");
+
     result.save();
     role = result?.role;
     return res.status(200).json({
